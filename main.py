@@ -25,9 +25,10 @@ while len(guessed_states) < 50:
         file_state = data[data["state"] == answer_state]
         t.goto(int(file_state["x"].item()), int(file_state["y"].item()))
         t.write(f"{file_state['state'].item()}")
-    # def get_mouse_click_coor(x, y):
-#     print(x, y)
-#
-# turtle.onscreenclick(get_mouse_click_coor)
+
+with open("missed_states.csv", mode="w") as missed_state:
+    for state in all_states:
+        if state not in guessed_states:
+            missed_state.write(state)
 
 turtle.mainloop()
