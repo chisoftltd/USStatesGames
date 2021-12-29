@@ -1,5 +1,6 @@
 import turtle
 import pandas
+import csv
 
 screen = turtle.Screen()
 screen.title("U.S. States Game")
@@ -29,6 +30,7 @@ while len(guessed_states) < 50:
 with open("missed_states.csv", mode="w") as missed_state:
     for state in all_states:
         if state not in guessed_states:
-            missed_state.write(state)
+            wr = csv.writer(missed_state)
+            wr.writerows(state)
 
 turtle.mainloop()
