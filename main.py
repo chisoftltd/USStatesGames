@@ -16,6 +16,11 @@ while len(guessed_states) < 50:
     "What's another state's name?").title()
 
     if answer_state == 'Exit':
+        with open("missed_states.csv", mode="w") as missed_state:
+            for state in all_states:
+                if state not in guessed_states:
+                    new_missed_state = state + "\n"
+                    missed_state.writelines(new_missed_state)
         break
     if answer_state in all_states:
         guessed_states.append(answer_state)
@@ -26,10 +31,5 @@ while len(guessed_states) < 50:
         t.goto(int(file_state["x"].item()), int(file_state["y"].item()))
         t.write(f"{file_state['state'].item()}")
 
-with open("missed_states.csv", mode="w") as missed_state:
-    for state in all_states:
-        if state not in guessed_states:
-            new_missed_state = state + "\n"
-            missed_state.writelines(new_missed_state)
 
 turtle.mainloop()
