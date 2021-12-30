@@ -15,22 +15,28 @@ guessed_states = []
 while len(guessed_states) < 50:
     answer_state = screen.textinput(title=f"{len(guessed_states)}/50 Guess the State", prompt=
     "What's another state's name?").title()
+    #
+    # if answer_state == 'Exit':
+    #     missing_states = []
+    #     for state in all_states:
+    #         if state not in guessed_states:
+    #             missing_states.append(state)
+    #     new_data = pd.DataFrame(missing_states)
+    #     new_data.to_csv("pandas_missed_states.csv")
+    #
+    #     with open("missed_states.csv", mode="w") as missed_state:
+    #         count = 0
+    #         for state in all_states:
+    #             if state not in guessed_states:
+    #                 count += 1
+    #                 new_missed_state = str(count) + ": " + state + "\n"
+    #                 missed_state.writelines(new_missed_state)
 
+    # Apply list comprehension
     if answer_state == 'Exit':
-        missing_states = []
-        for state in all_states:
-            if state not in guessed_states:
-                missing_states.append(state)
+        missing_states = [state for state in all_states if state not in guessed_states]
         new_data = pd.DataFrame(missing_states)
-        new_data.to_csv("pandas_missed_states.csv")
-
-        with open("missed_states.csv", mode="w") as missed_state:
-            count = 0
-            for state in all_states:
-                if state not in guessed_states:
-                    count += 1
-                    new_missed_state = str(count) + ": " + state + "\n"
-                    missed_state.writelines(new_missed_state)
+        new_data.to_csv("missed_states.csv")
 
         break
     if answer_state in all_states:
